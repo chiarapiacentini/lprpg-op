@@ -14,10 +14,10 @@ Optional: Gurobi
 git clone https://github.com/chiarapiacentini/lprpg-op.git
 ```
 
-2. Go to `src` directory
+2. Go to `lprpg-op` directory
 
 ```
-cd src
+cd lprpg-op
 ```
 
 3. Export location of CPLEX libraries:
