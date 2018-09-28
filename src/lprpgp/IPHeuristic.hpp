@@ -74,6 +74,7 @@ protected:
     int maxUse;
     MinimalState &theState;
     virtual void extractSolution();
+    virtual int extractSolutionLength();
 private:
     // index follow ripple note 231 (?)
     vector<int> up;
@@ -140,6 +141,5 @@ private:
     static pair<list<pair<int,double>>,double> getExpression(RPGBuilder::RPGNumericPrecondition precondition);
     void calculateMaxActions(MinimalState &theState);
     
-    virtual int extractSolutionLength();
 };
 #endif /* IPHeuristic_hpp */

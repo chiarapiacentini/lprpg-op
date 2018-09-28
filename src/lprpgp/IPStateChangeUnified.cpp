@@ -662,24 +662,24 @@ void IPStateChangeUnified::extractSolution(){
         }
     }
 
-    for (int t = 0; t < maxT; ++t){
-        for (int iL = 0; iL < RPGBuilder::getNLiterals(); ++iL){
-            Literal *l = RPGBuilder::getLiteral(iL);
-            //cout << t << " " << *l << " " << indexLiteralPreAdd[{l,t}] << " " << indexLiteralPreDel[{l,t}] << " " << indexLiteralAdd[{l,t}] << " " << indexLiteralMaintain[{l,t}] << endl;
-            double pa = solver->getValue(IPBooleanAux, indexLiteralPreAdd[{l,t}]);
-            double pd = solver->getValue(IPBooleanAux, indexLiteralPreDel[{l,t}]);
-            double a = solver->getValue(IPBooleanAux, indexLiteralAdd[{l,t}]);
-            double m = solver->getValue(IPBooleanAux, indexLiteralMaintain[{l,t}]);
-            cout << t << " " << *l << " " << pa << " " << pd << " " << a << " " << m << endl;
-        }
-    }
+//    for (int t = 0; t < maxT; ++t){
+//        for (int iL = 0; iL < RPGBuilder::getNLiterals(); ++iL){
+//            Literal *l = RPGBuilder::getLiteral(iL);
+//            //cout << t << " " << *l << " " << indexLiteralPreAdd[{l,t}] << " " << indexLiteralPreDel[{l,t}] << " " << indexLiteralAdd[{l,t}] << " " << indexLiteralMaintain[{l,t}] << endl;
+//            double pa = solver->getValue(IPBooleanAux, indexLiteralPreAdd[{l,t}]);
+//            double pd = solver->getValue(IPBooleanAux, indexLiteralPreDel[{l,t}]);
+//            double a = solver->getValue(IPBooleanAux, indexLiteralAdd[{l,t}]);
+//            double m = solver->getValue(IPBooleanAux, indexLiteralMaintain[{l,t}]);
+//            //cout << t << " " << *l << " " << pa << " " << pd << " " << a << " " << m << endl;
+//        }
+//    }
         
-    for (int v = 0; v < Planner::RPGBuilder::getPNECount(); ++v){
-        for (int t = 0; t < maxT; ++t){
-            double isSelected = solver->getValue(IPContinous, indexPNE[{RPGBuilder::getPNE(v),t}]);
-            cout << *RPGBuilder::getPNE(v) << " " << t  << " " << isSelected << endl;
-        }
-    }
+//    for (int v = 0; v < Planner::RPGBuilder::getPNECount(); ++v){
+//        for (int t = 0; t < maxT; ++t){
+//            double isSelected = solver->getValue(IPContinous, indexPNE[{RPGBuilder::getPNE(v),t}]);
+//            cout << *RPGBuilder::getPNE(v) << " " << t  << " " << isSelected << endl;
+//        }
+//    }
     
 //    for (int iL = 0; iL < RPGBuilder::getNLiterals(); ++iL){
 //        Literal *l = RPGBuilder::getLiteral(iL);

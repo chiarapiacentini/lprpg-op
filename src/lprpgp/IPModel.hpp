@@ -89,7 +89,7 @@ public:
     };
     bool checkOptimal;
     void checkOptimality(){ checkOptimal = true; }
-    double getPlanLength() {return pL; };
+    double getPlanLength() {return extractSolutionLength(); };
     virtual void addMIPStart(list<int> solution){
         
     };
@@ -129,6 +129,7 @@ protected:
     ostringstream solution;
     bool addWarmStart;
     list<int> solutionIP;
+    virtual int extractSolutionLength(){return 0; }
 };
 
 #endif /* IPModel_hpp */

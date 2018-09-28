@@ -762,17 +762,17 @@ void IPHeuristic::extractSolution(){
 
 int IPHeuristic::extractSolutionLength(){
     int solutionLength = 0;
-//    vector<list<int> > mapLength(actionsToUse.size() + 1, list<int>());
-//    for (int ji = 0; ji < actionsToUse.size(); ++ji){
-//        int i = actionsToUse[ji];
-//        double isSelected = cplex.getValue(x.m[ma[i]]);
-//        if (isSelected > 0.001){
-//            (mapLength[int(cplex.getValue(x.m[ta[i]]))]).push_back(cplex.getValue(x.m[ma[i]]));
-//        }
-//    }
-//    for (auto& e : mapLength){
-//        solutionLength+= *max_element(e.begin(),e.end());
-//    }
+    vector<list<int> > mapLength(actionsToUse.size() + 1, list<int>());
+    for (int ji = 0; ji < actionsToUse.size(); ++ji){
+        int i = actionsToUse[ji];
+        double isSelected = solver->getValue(IPInteger,ma[i]);
+        if (isSelected > 0.001){
+            (mapLength[int(solver->getValue(IPInteger,ta[i]))]).push_back(solver->getValue(IPInteger,ma[i]));
+        }
+    }
+    for (auto& e : mapLength){
+        solutionLength+= *max_element(e.begin(),e.end());
+    }
     return solutionLength;
 }
 
