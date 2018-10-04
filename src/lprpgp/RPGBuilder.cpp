@@ -74,7 +74,7 @@
 #include "NumericAnalysis.h"
 #include "PreferenceHandler.h"
 #include "landmarksanalysis.h"
-
+#include "IPCompilation.hpp"
 #include <sstream>
 
 using namespace TIM;
@@ -3035,7 +3035,7 @@ map<string,list<int> > RPGBuilder::prefNameToID;
 map<string,int> RPGBuilder::prefNameToNumberOfTimesDefinitelyViolated;
 double RPGBuilder::permanentPreferenceViolations = 0.0;
 
-void RPGBuilder::initialise() {
+void RPGBuilder::initialise(bool compilation) {
 	RPGdebug = (GlobalSchedule::globalVerbosity & 16);
 	SimpleEvaluator::setInitialState();
 	for(operator_list::const_iterator os = current_analysis->the_domain->ops->begin();
@@ -3875,7 +3875,38 @@ void RPGBuilder::initialise() {
     NumericAnalysis::identifySimpleReversibleNumberPumps();
     
     PreferenceHandler::flattenNNF();
-
+    if (!planAnyway) {
+        const int loopLim = rpgNumericEffects.size();
+        set<int> warnAbout;
+        for (int i = 0; i < loopLim; ++i) {
+            if (rpgNumericEffects[i].size) {
+                warnAbout.insert(rpgNumericEffects[i].fluentIndex);
+            }
+        }
+        if (!warnAbout.empty()) {
+            cout << "********************************************************************************\n";
+            if (warnAbout.size() == 1) {
+                cout << "Warning: The variable " << *(RPGBuilder::getPNE(*(warnAbout.begin()))) << " has a non-constant effect applied to it, thereby violating the producer--consumer behaviour needed for the heuristic.\n";
+            } else {
+                cout << "Warning: The following variables have non-constant effects applied to them,\nthereby violating the producer--consumer behaviour needed for the heuristic:\n";
+                set<int>::iterator warnItr = warnAbout.begin();
+                const set<int>::iterator warnEnd = warnAbout.end();
+                for (; warnItr != warnEnd; ++warnItr) {
+                    cout << "\t" << *(RPGBuilder::getPNE(*warnItr)) << "\n";
+                }
+            }
+            cout << "As such, the behaviour of LPRPG cannot be guaranteed to be sensible.\n";
+            cout << "Run with -citation for details of the paper describing the LPRPG heuristic, or\n";
+            cout << "with -plananyway to force LPRPG to attempt to find a solution.\n";
+            cout << "********************************************************************************\n";
+            if (!compilation)
+                exit(0);
+            else{
+                planAnyway=true;
+            }
+        }
+    }
+        
     if (postFilter && !RPGBuilder::planAnyway) {
         postFilterIrrelevantActions();
     }
@@ -3907,7 +3938,8 @@ void RPGBuilder::initialise() {
 			cout << "Run with -citation for details of the paper describing the LPRPG heuristic, or\n";
 			cout << "with -plananyway to force LPRPG to attempt to find a solution.\n";
 			cout << "********************************************************************************\n";
-			exit(0);
+
+                exit(0);
 		}
 	}
     

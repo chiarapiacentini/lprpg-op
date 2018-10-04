@@ -650,7 +650,7 @@ int main(int argc,char * argv[])
 
 	cout << std::setprecision(3) << std::fixed;
 
-	RPGBuilder::initialise();
+    RPGBuilder::initialise(Compilation::solveIPCompilation);
 
 	if (RPGBuilder::getTILVec().size() > 0) {
 		cout << "Timed initial literals detected, using extended temporal RPG analysis\n";

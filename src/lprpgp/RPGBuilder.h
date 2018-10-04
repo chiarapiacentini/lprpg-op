@@ -730,7 +730,7 @@ namespace Planner {
         
         static unsigned int statesEvaluated;
         
-        static void initialise();
+        static void initialise(bool compilation = true);
         
         
         static vector<list<int> > & getActionsToProcessedStartRPGNumericPreconditions()
