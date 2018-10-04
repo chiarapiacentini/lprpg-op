@@ -181,6 +181,20 @@ void IPStateBasedModel::extractSolution(){
     }
 }
 
+int IPStateBasedModel::extractSolutionLength(){
+    int pL = 0;
+    for (int t = 0; t < maxT; ++t){
+        for (int a = 0; a < Planner::RPGBuilder::getNOp(); ++a){
+            double isSelected = solver->getValue(IPBoolean, indexAction[{RPGBuilder::getInstantiatedOp(a),t}]);
+            //cout << a << " " << t  << " " << isSelected << endl;
+            if (isSelected>0.00001){
+                pL++;
+            }
+        }
+    }
+    return pL;
+}
+
 void IPStateBasedModel::updateConstraints(MinimalState &state){
     
 }

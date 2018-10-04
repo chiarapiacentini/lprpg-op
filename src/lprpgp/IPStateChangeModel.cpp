@@ -797,6 +797,19 @@ void IPStateChangeModel::extractSolution(){
     }
 }
 
+int IPStateChangeModel::extractSolutionLength(){
+    int pL = 0;
+    for (int t = 0; t < maxT; ++t){
+        for (int a = 0; a < Planner::RPGBuilder::getNOp(); ++a){
+            double isSelected = solver->getValue(IPBoolean, indexAction[{RPGBuilder::getInstantiatedOp(a),t}]);
+            //cout << a << " " << t  << " " << isSelected << endl;
+            if (isSelected>0.00001){
+                pL++;
+            }
+        }
+    }
+    return pL;
+}
 
 void IPStateChangeModel::incrementTimeHorizon(MinimalState & state, int increment){
     int start = maxT;

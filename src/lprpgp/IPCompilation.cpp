@@ -340,6 +340,8 @@ void Compilation::iterativeHorizon(MinimalState &state,  ModelType modelType,  N
                 cout << "; Time : " << secsNow << endl;
                 cout << "; Time building     : " << secsNow << endl;
                 cout << "; Time solving      : " << secsNow << endl;
+                cout << "; Plan cost         : " << sbf->getObjectiveValue() << endl;
+                cout << "; Plan lenght       : " << sbf->getPlanLength() << endl;
                 cout << ";" << endl;
                 sbf->getSolution();
             }else{
@@ -375,6 +377,8 @@ void Compilation::iterativeHorizon(MinimalState &state,  ModelType modelType,  N
             cout << "; Time : " << secsNow << endl;
             cout << "; Time building     : " << secsNow << endl;
             cout << "; Time solving      : " << secsNow << endl;
+            cout << "; Plan cost         : " << sbf->getObjectiveValue() << endl;
+            cout << "; Plan lenght       : " << sbf->getPlanLength() << endl;
             cout << ";" << endl;
             sbf->getSolution();
         }

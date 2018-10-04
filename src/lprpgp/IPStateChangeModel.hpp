@@ -67,6 +67,7 @@ protected:
     virtual void buildConstraints();
     virtual void updateConstraints(MinimalState &state);
     virtual void extractSolution();
+    virtual int extractSolutionLength();
 
     void addVariables(int tMin, int tMax);
 
