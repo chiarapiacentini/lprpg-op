@@ -771,7 +771,13 @@ int IPHeuristic::extractSolutionLength(){
         }
     }
     for (auto& e : mapLength){
-        solutionLength+= *max_element(e.begin(),e.end());
+        int max_step = 0;
+        for (auto a : e){
+            if (a > max_step)
+                max_step = a;
+        }
+        solutionLength += max_step;
+        //solutionLength+= *max_element(e.begin(),e.end());
     }
     return solutionLength;
 }
